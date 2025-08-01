@@ -45,3 +45,21 @@ def get_finger_status(hand_landmarks):
             finger_states.append(0)
 
     return finger_states
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    frame = cv2.flip(frame, 1)
+    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = hands_model.process(rgb)
+
+    if results.multi_hand_landmarks:
+        for hand in results.multi_hand_landmarks:
+            # Get index finger tip coordinates
+            x = hand.landmark[8].x * frame.shape[1]
+            y = hand.landmark[8].y * frame.shape[0]
+
+            # Draw finger tip
+            cv2.circle(frame, (int(x), int(y)), 10, (255, 0, 255), -1)
