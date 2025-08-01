@@ -96,3 +96,9 @@ while True:
                 pyautogui.press('left')
                 last_gesture_time = current_time
                 cv2.putText(frame, "Previous Slide", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
+
+                  # 4. Exit using 4 fingers (no thumb)
+            elif fingers == [0, 1, 1, 1, 1] and current_time - last_gesture_time > gesture_cooldown:
+                pyautogui.press('esc')
+                last_gesture_time = current_time
+                cv2.putText(frame, "Exit (4 Fingers)", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
