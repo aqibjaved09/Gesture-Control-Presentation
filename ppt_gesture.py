@@ -102,3 +102,12 @@ while True:
                 pyautogui.press('esc')
                 last_gesture_time = current_time
                 cv2.putText(frame, "Exit (4 Fingers)", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
+
+                drawer.draw_landmarks(frame, hand, mp_hands.HAND_CONNECTIONS)
+
+    cv2.imshow("Gesture Controlled Presentation", frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
