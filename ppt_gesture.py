@@ -103,6 +103,15 @@ while True:
                 last_gesture_time = current_time
                 cv2.putText(frame, "Exit (4 Fingers)", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
+                 # 5. Swipe Exit (based on wrist movement)
+            wrist_x = hand.landmark[0].x * frame.shape[1]
+            swipe_distance = wrist_x - prev_x
+            if abs(swipe_distance) > 150 and current_time - last_gesture_time > gesture_cooldown:
+                pyautogui.press('esc')
+                last_gesture_time = current_time
+                cv2.putText(frame, "Exit by Swipe", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
+
 
                 drawer.draw_landmarks(frame, hand, mp_hands.HAND_CONNECTIONS)
 
