@@ -63,3 +63,15 @@ while True:
 
             # Draw finger tip
             cv2.circle(frame, (int(x), int(y)), 10, (255, 0, 255), -1)
+            # Get current finger states
+            fingers = get_finger_status(hand)
+
+            # Cursor movement (only index finger up)
+            if fingers == [0, 1, 0, 0, 0]:
+                mapped_x = np.interp(x, (0, frame.shape[1]), (0, screen_width))
+                mapped_y = np.interp(y, (0, frame.shape[0]), (0, screen_height))
+                smooth_x = prev_x + (mapped_x - prev_x) / smoothing_factor
+                smooth_y = prev_y + (mapped_y - prev_y) / smoothing_factor
+
+                pyautogui.moveTo(smooth_x, smooth_y)
+                prev_x, prev_y = smooth_x, smooth_y
