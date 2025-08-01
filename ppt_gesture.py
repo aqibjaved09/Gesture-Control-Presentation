@@ -75,3 +75,12 @@ while True:
 
                 pyautogui.moveTo(smooth_x, smooth_y)
                 prev_x, prev_y = smooth_x, smooth_y
+               
+                # Detect gestures and perform actions
+            current_time = time.time()
+
+            # 1. Start Presentation (5 fingers)
+            if fingers.count(1) == 5 and current_time - last_gesture_time > gesture_cooldown:
+                pyautogui.press('f5')
+                last_gesture_time = current_time
+                cv2.putText(frame, "Start Presentation", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
