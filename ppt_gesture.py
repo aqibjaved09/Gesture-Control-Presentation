@@ -90,3 +90,9 @@ while True:
                 pyautogui.press('right')
                 last_gesture_time = current_time
                 cv2.putText(frame, "Next Slide", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
+
+                # 3. Previous Slide (index and middle fingers up)
+            elif fingers[1] == 1 and fingers[2] == 1 and current_time - last_gesture_time > gesture_cooldown:
+                pyautogui.press('left')
+                last_gesture_time = current_time
+                cv2.putText(frame, "Previous Slide", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
